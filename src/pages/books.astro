@@ -1,0 +1,92 @@
+---
+import Layout from '../layouts/Layout.astro';
+import BookCard from '../components/BookCard.astro';
+import FileUpload from '../components/FileUpload.astro';
+import FileList from '../components/FileList.astro';
+
+const books = [
+  {
+    title: "The Phoenix Project",
+    author: "Gene Kim, Kevin Behr, George Spafford",
+    description: "A novel about IT, DevOps, and helping your business win. Learn DevOps principles through a compelling narrative.",
+    coverUrl: "https://m.media-amazon.com/images/I/51-hnb1H-TL._SX322_BO1,204,203,200_.jpg",
+    category: "DevOps Culture",
+    level: "Beginner"
+  },
+  {
+    title: "The DevOps Handbook",
+    author: "Gene Kim, Jez Humble, Patrick Debois",
+    description: "A comprehensive guide to DevOps principles, practices, and technical patterns for high-performing organizations.",
+    coverUrl: "https://m.media-amazon.com/images/I/51Z6uXnKO6L._SX382_BO1,204,203,200_.jpg",
+    category: "Best Practices",
+    level: "Intermediate"
+  },
+  {
+    title: "Continuous Delivery",
+    author: "Jez Humble, David Farley",
+    description: "Learn how to build, deploy, test, and deliver software reliably and rapidly using automation.",
+    coverUrl: "https://m.media-amazon.com/images/I/51yF2SYUi9L._SX376_BO1,204,203,200_.jpg",
+    category: "CI/CD",
+    level: "Advanced"
+  },
+  {
+    title: "Infrastructure as Code",
+    author: "Kief Morris",
+    description: "Master the practices and tools for managing Infrastructure as Code in cloud environments.",
+    coverUrl: "https://m.media-amazon.com/images/I/51HAy+2xFFL._SX379_BO1,204,203,200_.jpg",
+    category: "Infrastructure",
+    level: "Intermediate"
+  }
+];
+
+const categories = [...new Set(books.map(book => book.category))];
+---
+
+<Layout title="DevOps Books - Essential Reading">
+  <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+    <div class="text-center mb-12">
+      <h1 class="text-4xl font-bold mb-4 bg-gradient-to-r from-cyan-400 via-blue-500 to-purple-600 bg-clip-text text-transparent">
+        Essential DevOps Books
+      </h1>
+      <p class="text-lg text-cyan-300">Curated reading list to master DevOps practices and principles</p>
+    </div>
+
+    <div class="mb-8">
+      <div class="flex flex-wrap gap-2 justify-center">
+        {categories.map(category => (
+          <button class="px-4 py-2 rounded-full text-sm font-medium bg-gray-800 text-cyan-300 hover:bg-gray-700 border border-cyan-500/20 transition-all duration-200">
+            {category}
+          </button>
+        ))}
+      </div>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-12">
+      {books.map(book => (
+        <BookCard {...book} />
+      ))}
+    </div>
+
+    <div class="space-y-8">
+      <FileUpload />
+      <FileList />
+    </div>
+
+    <div class="mt-12 bg-gray-900/80 backdrop-blur-sm rounded-lg p-8 border border-cyan-500/20">
+      <h2 class="text-2xl font-bold mb-4 bg-gradient-to-r from-cyan-400 to-blue-500 bg-clip-text text-transparent">
+        Reading Recommendations
+      </h2>
+      <div class="space-y-4 text-gray-300">
+        <p>
+          <span class="font-semibold text-cyan-400">For Beginners:</span> Start with "The Phoenix Project" to understand DevOps principles through a compelling story.
+        </p>
+        <p>
+          <span class="font-semibold text-cyan-400">For Practitioners:</span> "The DevOps Handbook" provides practical guidance for implementing DevOps practices.
+        </p>
+        <p>
+          <span class="font-semibold text-cyan-400">For Advanced Users:</span> Deep dive into specific areas with books like "Continuous Delivery" and "Infrastructure as Code".
+        </p>
+      </div>
+    </div>
+  </main>
+</Layout>

@@ -1,0 +1,32 @@
+---
+interface Props {
+  title: string;
+  author: string;
+  description: string;
+  coverUrl: string;
+  category: string;
+  level: string;
+}
+
+const { title, author, description, coverUrl, category, level } = Astro.props;
+---
+
+<div class="card-3d bg-gray-900/80 backdrop-blur-sm rounded-lg overflow-hidden border border-indigo-500/20">
+  <div class="relative">
+    <img src={coverUrl} alt={title} class="w-full h-64 object-cover" />
+    <div class="absolute inset-0 bg-gradient-to-t from-gray-900 to-transparent opacity-60"></div>
+  </div>
+  <div class="p-6">
+    <div class="flex justify-between items-start mb-2">
+      <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-indigo-900/50 text-indigo-300 border border-indigo-500/30">
+        {level}
+      </span>
+      <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-gray-800/50 text-gray-300 border border-gray-600/30">
+        {category}
+      </span>
+    </div>
+    <h3 class="text-xl font-semibold text-white mb-2">{title}</h3>
+    <p class="text-sm text-indigo-300 mb-4">by {author}</p>
+    <p class="text-gray-300">{description}</p>
+  </div>
+</div>

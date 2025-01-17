@@ -1,0 +1,190 @@
+---
+import Layout from '../layouts/Layout.astro';
+
+const modules = [
+  {
+    title: "1. Introduction to DevOps",
+    topics: [
+      "Definition and Importance: Understanding DevOps, its principles, and benefits",
+      "DevOps Lifecycle: Plan, Develop, Build, Test, Release, Deploy, Operate, Monitor",
+      "Key Concepts: CI/CD, collaboration, automation, and continuous feedback"
+    ]
+  },
+  {
+    title: "2. Version Control Systems (VCS)",
+    topics: [
+      "Introduction: Role of version control in DevOps",
+      "Git Basics: Repository, branches, commits, merges",
+      "GitHub/GitLab/Bitbucket: Remote repositories and collaboration",
+      "Advanced Git: Rebasing, cherry-picking, resolving conflicts"
+    ]
+  },
+  {
+    title: "3. Build Tools",
+    topics: [
+      "Overview: Importance of build tools",
+      "Maven/Gradle: Dependency management and build automation",
+      "Makefiles: Basics and usage"
+    ]
+  },
+  {
+    title: "4. Continuous Integration and Continuous Deployment (CI/CD)",
+    topics: [
+      "CI/CD Pipelines: Tools like Jenkins, GitHub Actions, GitLab CI/CD, Azure DevOps",
+      "Setting up pipelines: Build, test, deploy automation",
+      "Jenkins: Installation and configuration",
+      "Writing and managing Jenkinsfiles",
+      "Integrating tools like Git, Docker, Kubernetes"
+    ]
+  },
+  {
+    title: "5. Configuration Management",
+    topics: [
+      "Purpose: Managing infrastructure as code (IaC)",
+      "Ansible: Playbooks, roles, modules",
+      "Puppet: Manifests, modules, environment setup",
+      "Chef: Recipes, cookbooks, nodes",
+      "Declarative vs Imperative Infrastructure",
+      "State management with Terraform"
+    ]
+  },
+  {
+    title: "6. Containerization",
+    topics: [
+      "Concepts: Containers and their advantages",
+      "Microservices architecture",
+      "Docker: Images, containers, Dockerfile",
+      "Docker Compose: Managing multi-container applications",
+      "Docker Swarm: Orchestration basics",
+      "Best Practices: Security, image optimization"
+    ]
+  },
+  {
+    title: "7. Container Orchestration",
+    topics: [
+      "Kubernetes Architecture: Pods, nodes, cluster, kubelet, etcd, scheduler",
+      "Deployments: ReplicaSets, Deployments, StatefulSets",
+      "Networking: Services, Ingress",
+      "Storage: Persistent Volumes (PV), Persistent Volume Claims (PVC)",
+      "Helm Charts: Package management",
+      "Monitoring: Prometheus, Grafana, Kubernetes Dashboard"
+    ]
+  },
+  {
+    title: "8. Cloud Platforms",
+    topics: [
+      "Cloud Computing Basics: IaaS, PaaS, SaaS",
+      "AWS: EC2, S3, RDS, Lambda, CloudFormation",
+      "Azure: Azure DevOps, AKS, VM, Blob Storage",
+      "Google Cloud: GKE, Compute Engine, Cloud Functions"
+    ]
+  },
+  {
+    title: "9. Monitoring and Logging",
+    topics: [
+      "ELK Stack (Elasticsearch, Logstash, Kibana)",
+      "Grafana and Prometheus",
+      "Cloud Monitoring Tools (AWS CloudWatch, Azure Monitor)",
+      "Log management",
+      "Alerting and performance analysis"
+    ]
+  },
+  {
+    title: "10. Security in DevOps (DevSecOps)",
+    topics: [
+      "Introduction: Integrating security into DevOps pipelines",
+      "Static Application Security Testing (SAST): SonarQube",
+      "Dynamic Application Security Testing (DAST): OWASP ZAP",
+      "Secrets management: HashiCorp Vault, AWS Secrets Manager",
+      "Secure Docker images and Kubernetes clusters"
+    ]
+  },
+  {
+    title: "11. Scripting and Automation",
+    topics: [
+      "Shell scripting",
+      "Python for automation",
+      "Use Cases: Automating tasks, configuration, and monitoring"
+    ]
+  },
+  {
+    title: "12. Database Management",
+    topics: [
+      "Database schema changes in CI/CD",
+      "Tools: Liquibase, Flyway",
+      "Database Monitoring: Query optimization and logs"
+    ]
+  },
+  {
+    title: "13. Networking and System Administration",
+    topics: [
+      "Networking Basics: Protocols, DNS, Load Balancers",
+      "Tools: Nginx, Apache, HAProxy",
+      "Linux: File systems, process management",
+      "Security: SSH, firewalls, SSL/TLS"
+    ]
+  },
+  {
+    title: "14. Advanced DevOps Practices",
+    topics: [
+      "Site Reliability Engineering (SRE): Principles and implementation",
+      "Chaos Engineering: Tools like Chaos Monkey, LitmusChaos",
+      "Scaling: Horizontal and Vertical scaling",
+      "Load testing tools: JMeter, Locust"
+    ]
+  },
+  {
+    title: "15. Soft Skills for DevOps",
+    topics: [
+      "Collaboration: Working with cross-functional teams",
+      "Communication: Writing clear documentation and reports",
+      "Problem-Solving: Incident management and root cause analysis"
+    ]
+  }
+];
+---
+
+<Layout title="DevOps Syllabus - Comprehensive Learning Path">
+  <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+    <div class="text-center mb-12">
+      <h1 class="text-4xl font-bold mb-4 bg-gradient-to-r from-cyan-400 via-blue-500 to-purple-600 bg-clip-text text-transparent">
+        DevOps Training Syllabus
+      </h1>
+      <p class="text-lg text-cyan-300">
+        Comprehensive curriculum covering all essential DevOps concepts and tools
+      </p>
+    </div>
+
+    <div class="space-y-8">
+      {modules.map((module) => (
+        <div class="bg-gray-900/80 backdrop-blur-sm rounded-lg p-6 border border-cyan-500/20 hover:border-cyan-500/40 transition-all duration-300 card-3d">
+          <h2 class="text-2xl font-bold mb-4 bg-gradient-to-r from-cyan-400 to-blue-500 bg-clip-text text-transparent">
+            {module.title}
+          </h2>
+          <ul class="space-y-2">
+            {module.topics.map((topic) => (
+              <li class="text-gray-300 flex items-start">
+                <span class="text-cyan-500 mr-2">•</span>
+                {topic}
+              </li>
+            ))}
+          </ul>
+        </div>
+      ))}
+    </div>
+  </main>
+</Layout>
+
+<style>
+  .card-3d {
+    transform-style: preserve-3d;
+    transition: transform 0.3s ease;
+  }
+
+  .card-3d:hover {
+    transform: translateY(-5px) rotateX(2deg);
+    box-shadow: 
+      0 25px 50px -12px rgba(8, 145, 178, 0.25),
+      0 0 30px rgba(8, 145, 178, 0.1);
+  }
+</style>

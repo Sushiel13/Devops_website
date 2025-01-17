@@ -1,0 +1,79 @@
+---
+import { createClient } from '@supabase/supabase-js';
+
+const supabase = createClient(
+  import.meta.env.PUBLIC_SUPABASE_URL,
+  import.meta.env.PUBLIC_SUPABASE_ANON_KEY
+);
+
+const { data: files } = await supabase
+  .from('book_files')
+  .select('*')
+  .order('created_at', { ascending: false });
+
+function formatFileSize(bytes) {
+  if (bytes === 0) return '0 Bytes';
+  const k = 1024;
+  const sizes = ['Bytes', 'KB', 'MB', 'GB'];
+  const i = Math.floor(Math.log(bytes) / Math.log(k));
+  return parseFloat((bytes / Math.pow(k, i)).toFixed(2)) + ' ' + sizes[i];
+}
+---
+
+<div class="space-y-4">
+  {files?.map((file) => (
+    <div class="bg-gray-900/80 backdrop-blur-sm rounded-lg p-4 border border-cyan-500/20 hover:border-cyan-500/40 transition-all duration-200">
+      <div class="flex items-center justify-between">
+        <div>
+          <h4 class="text-lg font-medium text-gray-200">{file.name}</h4>
+          <p class="text-sm text-gray-400">{formatFileSize(file.size)}</p>
+        </div>
+        <button
+          class="download-btn px-4 py-2 bg-gradient-to-r from-cyan-500 to-blue-600 text-white rounded-md hover:from-cyan-600 hover:to-blue-700 focus:outline-none focus:ring-2 focus:ring-cyan-500 transition-all duration-200"
+          data-path={file.file_path}
+        >
+          Download
+        </button>
+      </div>
+    </div>
+  ))}
+</div>
+
+<script>
+  import { createClient } from '@supabase/supabase-js';
+
+  // Wait for the DOM to be fully loaded
+  document.addEventListener('DOMContentLoaded', () => {
+    const supabase = createClient(
+      import.meta.env.PUBLIC_SUPABASE_URL,
+      import.meta.env.PUBLIC_SUPABASE_ANON_KEY
+    );
+
+    document.querySelectorAll('.download-btn').forEach(button => {
+      button.addEventListener('click', async () => {
+        const path = button.dataset.path;
+        
+        try {
+          const { data, error } = await supabase.storage
+            .from('books')
+            .download(path);
+
+          if (error) throw error;
+
+          // Create download link
+          const url = URL.createObjectURL(data);
+          const a = document.createElement('a');
+          a.href = url;
+          a.download = path.split('/').pop();
+          document.body.appendChild(a);
+          a.click();
+          document.body.removeChild(a);
+          URL.revokeObjectURL(url);
+        } catch (error) {
+          console.error('Error downloading file:', error);
+          alert('Error downloading file. Please try again.');
+        }
+      });
+    });
+  });
+</script>

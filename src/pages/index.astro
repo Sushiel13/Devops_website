@@ -1,0 +1,59 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Card from '../components/Card.astro';
+
+const features = [
+  {
+    title: 'Structured Learning',
+    body: 'From beginner to advanced, follow our carefully crafted learning paths.',
+    href: '/syllabus'
+  },
+  {
+    title: 'Hands-on Labs',
+    body: 'Practice in real cloud environments with guided exercises.',
+    href: '/labs'
+  },
+  {
+    title: 'Expert Community',
+    body: 'Connect with DevOps professionals and fellow learners.',
+    href: '/community'
+  },
+  {
+    title: 'Resource Library',
+    body: 'Access comprehensive documentation, guides, and case studies.',
+    href: '/resources'
+  }
+];
+---
+
+<Layout title="DevOps Partner - Master DevOps Skills">
+  <main>
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+      <div class="text-center">
+        <h1 class="text-4xl font-bold tracking-tight sm:text-5xl md:text-6xl">
+          <span class="block bg-gradient-to-r from-cyan-400 via-blue-500 to-purple-600 bg-clip-text text-transparent">Master DevOps with</span>
+          <span class="block bg-gradient-to-r from-purple-600 via-pink-500 to-cyan-400 bg-clip-text text-transparent">Hands-on Training</span>
+        </h1>
+        <p class="mt-3 max-w-md mx-auto text-base text-cyan-300 sm:text-lg md:mt-5 md:text-xl md:max-w-3xl">
+          Learn DevOps practices, tools, and methodologies from industry experts. Get hands-on experience with real-world projects.
+        </p>
+        <div class="mt-5 max-w-md mx-auto sm:flex sm:justify-center md:mt-8">
+          <div class="rounded-md shadow">
+            <a href="/syllabus" class="w-full flex items-center justify-center px-8 py-3 border border-transparent text-base font-medium rounded-md text-white bg-gradient-to-r from-cyan-500 via-blue-600 to-purple-700 hover:from-cyan-600 hover:via-blue-700 hover:to-purple-800 md:py-4 md:text-lg md:px-10 transition-all duration-300 shadow-[0_0_15px_rgba(56,189,248,0.5)] hover:shadow-[0_0_25px_rgba(56,189,248,0.7)]">
+              Get Started
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <div class="mt-16">
+        <h2 class="text-3xl font-bold text-center mb-8 bg-gradient-to-r from-cyan-400 to-blue-600 bg-clip-text text-transparent">Why Choose DevOps Partner?</h2>
+        <div class="grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-4">
+          {features.map(feature => (
+            <Card {...feature} />
+          ))}
+        </div>
+      </div>
+    </div>
+  </main>
+</Layout>
