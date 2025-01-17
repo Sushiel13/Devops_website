@@ -1,92 +1,166 @@
----
-import Layout from '../layouts/Layout.astro';
-import BookCard from '../components/BookCard.astro';
-import FileUpload from '../components/FileUpload.astro';
-import FileList from '../components/FileList.astro';
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DevOps Books - Essential Reading</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #1a202c;
+            color: #cbd5e0;
+        }
+        .container {
+            max-width: 1200px;
+            margin: auto;
+            padding: 20px;
+        }
+        h1 {
+            font-size: 2.5rem;
+            color: #63b3ed;
+            text-align: center;
+        }
+        .category-button {
+            padding: 10px 20px;
+            border-radius: 20px;
+            background-color: #2d3748;
+            color: #63b3ed;
+            border: 1px solid rgba(99, 184, 237, 0.2);
+            cursor: pointer;
+            margin: 5px;
+        }
+        .category-button:hover {
+            background-color: #4a5568;
+        }
+        .book-card {
+            background-color: #2d3748;
+            border-radius: 8px;
+            padding: 15px;
+            margin: 10px;
+            text-align: center;
+        }
+        .file-upload {
+            margin: 20px 0;
+        }
+        .file-list {
+            margin: 20px 0;
+        }
+        .recommendations {
+            background-color: rgba(0, 0, 0, 0.8);
+            padding: 20px;
+            border-radius: 8px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Essential DevOps Books</h1>
+        <p>Curated reading list to master DevOps practices and principles</p>
 
-const books = [
-  {
-    title: "The Phoenix Project",
-    author: "Gene Kim, Kevin Behr, George Spafford",
-    description: "A novel about IT, DevOps, and helping your business win. Learn DevOps principles through a compelling narrative.",
-    coverUrl: "https://m.media-amazon.com/images/I/51-hnb1H-TL._SX322_BO1,204,203,200_.jpg",
-    category: "DevOps Culture",
-    level: "Beginner"
-  },
-  {
-    title: "The DevOps Handbook",
-    author: "Gene Kim, Jez Humble, Patrick Debois",
-    description: "A comprehensive guide to DevOps principles, practices, and technical patterns for high-performing organizations.",
-    coverUrl: "https://m.media-amazon.com/images/I/51Z6uXnKO6L._SX382_BO1,204,203,200_.jpg",
-    category: "Best Practices",
-    level: "Intermediate"
-  },
-  {
-    title: "Continuous Delivery",
-    author: "Jez Humble, David Farley",
-    description: "Learn how to build, deploy, test, and deliver software reliably and rapidly using automation.",
-    coverUrl: "https://m.media-amazon.com/images/I/51yF2SYUi9L._SX376_BO1,204,203,200_.jpg",
-    category: "CI/CD",
-    level: "Advanced"
-  },
-  {
-    title: "Infrastructure as Code",
-    author: "Kief Morris",
-    description: "Master the practices and tools for managing Infrastructure as Code in cloud environments.",
-    coverUrl: "https://m.media-amazon.com/images/I/51HAy+2xFFL._SX379_BO1,204,203,200_.jpg",
-    category: "Infrastructure",
-    level: "Intermediate"
-  }
-];
+        <div id="categories" class="mb-8">
+            <!-- Category buttons will be generated here -->
+        </div>
 
-const categories = [...new Set(books.map(book => book.category))];
----
+        <div id="book-list" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-12">
+            <!-- Book cards will be generated here -->
+        </div>
 
-<Layout title="DevOps Books - Essential Reading">
-  <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-    <div class="text-center mb-12">
-      <h1 class="text-4xl font-bold mb-4 bg-gradient-to-r from-cyan-400 via-blue-500 to-purple-600 bg-clip-text text-transparent">
-        Essential DevOps Books
-      </h1>
-      <p class="text-lg text-cyan-300">Curated reading list to master DevOps practices and principles</p>
+        <div class="file-upload">
+            <input type="file" id="fileInput" />
+            <button onclick="handleFileUpload()">Upload</button>
+        </div>
+
+        <div id="file-list" class="file-list">
+            <!-- Uploaded files will be listed here -->
+        </div>
+
+        <div class="recommendations">
+            <h2>Reading Recommendations</h2>
+            <p><strong>For Beginners:</strong> Start with "The Phoenix Project" to understand DevOps principles through a compelling story.</p>
+            <p><strong>For Practitioners:</strong> "The DevOps Handbook" provides practical guidance for implementing DevOps practices.</p>
+            <p><strong>For Advanced Users:</strong> Deep dive into specific areas with books like "Continuous Delivery" and "Infrastructure as Code".</p>
+        </div>
     </div>
 
-    <div class="mb-8">
-      <div class="flex flex-wrap gap-2 justify-center">
-        {categories.map(category => (
-          <button class="px-4 py-2 rounded-full text-sm font-medium bg-gray-800 text-cyan-300 hover:bg-gray-700 border border-cyan-500/20 transition-all duration-200">
-            {category}
-          </button>
-        ))}
-      </div>
-    </div>
+    <script>
+        const books = [
+            {
+                title: "The Phoenix Project",
+                author: "Gene Kim, Kevin Behr, George Spafford",
+                description: "A novel about IT, DevOps, and helping your business win.",
+                coverUrl: "https://m.media-amazon.com/images/I/51-hnb1H-TL._SX322_BO1,204,203,200_.jpg",
+                category: "DevOps Culture",
+                level: "Beginner"
+            },
+            {
+                title: "The DevOps Handbook",
+                author: "Gene Kim, Jez Humble, Patrick Debois",
+                description: "A comprehensive guide to DevOps principles.",
+                coverUrl: "https://m.media-amazon.com/images/I/51Z6uXnKO6L._SX382_BO1,204,203,200_.jpg",
+                category: "Best Practices",
+                level: "Intermediate"
+            },
+            {
+                title: "Continuous Delivery",
+                author: "Jez Humble, David Farley",
+                description: "Learn how to build, deploy, test, and deliver software reliably.",
+                coverUrl: "https://m.media-amazon.com/images/I/51yF2SYUi9L._SX376_BO1,204,203,200_.jpg",
+                category: "CI/CD",
+                level: "Advanced"
+            },
+            {
+                title: "Infrastructure as Code",
+                author: "Kief Morris",
+                description: "Master the practices and tools for managing Infrastructure as Code.",
+                coverUrl: "https://m.media-amazon.com/images/I/51HAy+2xFFL._SX379_BO1,204,203,200_.jpg",
+                category: "Infrastructure",
+                level: "Intermediate"
+            }
+        ];
 
-    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-12">
-      {books.map(book => (
-        <BookCard {...book} />
-      ))}
-    </div>
+        const categories = [...new Set(books.map(book => book.category))];
 
-    <div class="space-y-8">
-      <FileUpload onUpload={handleFileUpload} />
-      <FileList files={uploadedFiles} onDownload={handleFileDownload} />
-    </div>
+        function displayCategories() {
+            const categoryContainer = document.getElementById('categories');
+            categories.forEach(category => {
+                const button = document.createElement('button');
+                button.className = 'category-button';
+                button.innerText = category;
+                categoryContainer.appendChild(button);
+            });
+        }
 
-    <div class="mt-12 bg-gray-900/80 backdrop-blur-sm rounded-lg p-8 border border-cyan-500/20">
-      <h2 class="text-2xl font-bold mb-4 bg-gradient-to-r from-cyan-400 to-blue-500 bg-clip-text text-transparent">
-        Reading Recommendations
-      </h2>
-      <div class="space-y-4 text-gray-300">
-        <p>
-          <span class="font-semibold text-cyan-400">For Beginners:</span> Start with "The Phoenix Project" to understand DevOps principles through a compelling story.
-        </p>
-        <p>
-          <span class="font-semibold text-cyan-400">For Practitioners:</span> "The DevOps Handbook" provides practical guidance for implementing DevOps practices.
-        </p>
-        <p>
-          <span class="font-semibold text-cyan-400">For Advanced Users:</span> Deep dive into specific areas with books like "Continuous Delivery" and "Infrastructure as Code".
-        </p>
-      </div>
-    </div>
-  </main>
-</Layout>
+        function displayBooks() {
+            const bookList = document.getElementById('book-list');
+            books.forEach(book => {
+                const card = document.createElement('div');
+                card.className = 'book-card';
+                card.innerHTML = `
+                    <h3>${book.title}</h3>
+                    <p>${book.author}</p>
+                    <img src="${book.coverUrl}" alt="${book.title}" style="width: 100%; height: auto;">
+                    <p>${book.description}</p>
+                `;
+                bookList.appendChild(card);
+            });
+        }
+
+        function handleFileUpload() {
+            const fileInput = document.getElementById('fileInput');
+            const fileList = document.getElementById('file-list');
+            const files = fileInput.files;
+
+            for (let i = 0; i < files.length; i++) {
+                const fileItem = document.createElement('div');
+                fileItem.innerText = files[i].name;
+                fileList.appendChild(fileItem);
+            }
+        }
+
+        displayCategories();
+        displayBooks();
+    </script>
+</body>
+</html>
